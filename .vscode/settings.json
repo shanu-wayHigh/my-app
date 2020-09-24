@@ -1,0 +1,40 @@
+{
+  "editor.fontFamily": "'Fira Code', 'Dank Mono', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontSize": 14,
+  "editor.formatOnSave": true,
+  "css.validate": false,
+  "scss.validate": false,
+  "eslint.enable": true,
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    ".prettierrc": true,
+    "**/.next": true,
+    ".gitignore": true,
+    "**/next-env.d.ts": true,
+    "**/yarn.lock": true
+  },
+
+  "search.exclude": {
+    "**/node_modules": true,
+    ".prettierrc": true,
+    "**/.next": true,
+    ".gitignore": true,
+    "**/next-env.d.ts": true,
+    "**/yarn.lock": true
+  },
+
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.gitignore": true,
+    "**/yarn.lock": true,
+    "**/.next": true,
+    "**/*.md": true,
+    "**/next-env.d.ts": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": false
+  }
+}
