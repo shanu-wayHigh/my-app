@@ -6,17 +6,22 @@ import {
   NewTaskInput,
   NoTaskMessage,
   ListWrapper,
+  SvgWrapper,
 } from './styles'
 
 function TaskList() {
   const [list, updateList] = React.useState([])
   const [value, setValue] = React.useState('')
   const inputRef: any = React.createRef()
+  const inputBoxRef: any = React.useRef([])
 
   const handleNewTask = e => {
     e.preventDefault()
     if (!value) return
-    updateList([...list, { taskName: value, uniqueKey: Date.now() }])
+    updateList([
+      ...list,
+      { taskName: value, uniqueKey: Date.now(), isEditMode: false },
+    ])
     setValue('')
   }
 
@@ -24,6 +29,33 @@ function TaskList() {
     const newTasks = [...list]
     newTasks.splice(index, 1)
     updateList(newTasks)
+  }
+
+  const editTask = uniqueKey => {
+    list.map((item, index) => {
+      const newList = [...list]
+      if (item.uniqueKey === uniqueKey) {
+        newList[index].isEditMode = true
+        console.log({ inputBoxRef })
+        inputBoxRef.current[index].focus()
+      } else {
+        newList[index].isEditMode = false
+      }
+      updateList(newList)
+    })
+  }
+
+  const handleOnEditComplete = (e, uniqueKey) => {
+    if (e.keyCode === 13) {
+      list.map((item, index) => {
+        const newList = [...list]
+        if (item.uniqueKey === uniqueKey) {
+          newList[index].isEditMode = false
+          inputBoxRef.current[index].blur()
+        }
+        updateList(newList)
+      })
+    }
   }
 
   const handleInputChange = (task, key) => {
@@ -34,14 +66,15 @@ function TaskList() {
         newList[index].taskName = task
       }
       updateList(newList)
-      return item
     })
   }
 
   return (
     <>
       <NewTaskPanel onSubmit={handleNewTask}>
-        <AddIcon onClick={handleNewTask} />
+        <SvgWrapper>
+          <AddIcon onClick={handleNewTask} />
+        </SvgWrapper>
         <NewTaskInput
           type="text"
           className="input"
@@ -54,18 +87,20 @@ function TaskList() {
       <ListWrapper>
         {list && list.length > 0 ? (
           list.map((item, index) => {
-            console.log({ listItem: item })
             return (
               <Item
                 {...item}
-                deleteTask={deleteTask}
                 index={index}
+                inputBoxRef={inputBoxRef}
+                editTask={editTask}
+                deleteTask={deleteTask}
                 handleInputChange={handleInputChange}
+                handleOnEditComplete={handleOnEditComplete}
               />
             )
           })
         ) : (
-          <NoTaskMessage>Currently no todos! Enjoy</NoTaskMessage>
+          <NoTaskMessage>Start adding todos!</NoTaskMessage>
         )}
       </ListWrapper>
     </>

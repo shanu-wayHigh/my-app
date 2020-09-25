@@ -1,6 +1,12 @@
 import React from 'react'
 import { TaskList } from '../src/components'
-import { ToDoContainer, ToDoWrapper, ToDoHeading, GlobalStyle } from './styles'
+import {
+  ToDoContainer,
+  ToDoWrapper,
+  ToDoHeading,
+  GlobalStyle,
+  StyledFooter,
+} from './styles'
 
 function App() {
   return (
@@ -14,6 +20,7 @@ function App() {
           </ToDoContainer>
         </ToDoWrapper>
       </div>
+      <StyledFooter>shanu.wayHigh@gmail.com | 9894212868</StyledFooter>
     </>
   )
 }
