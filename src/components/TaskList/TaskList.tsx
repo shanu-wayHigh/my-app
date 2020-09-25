@@ -16,16 +16,26 @@ function TaskList() {
   const handleNewTask = e => {
     e.preventDefault()
     if (!value) return
-
-    updateList([...list, { taskName: value }])
+    updateList([...list, { taskName: value, uniqueKey: Date.now() }])
     setValue('')
   }
 
   const deleteTask = index => {
     const newTasks = [...list]
-    console.log({ index, newTasks })
     newTasks.splice(index, 1)
     updateList(newTasks)
+  }
+
+  const handleInputChange = (task, key) => {
+    list.map((item, index) => {
+      const newList = [...list]
+      if (item.uniqueKey === key) {
+        console.log({ newList, item: newList[index] })
+        newList[index].taskName = task
+      }
+      updateList(newList)
+      return item
+    })
   }
 
   return (
@@ -43,14 +53,17 @@ function TaskList() {
       </NewTaskPanel>
       <ListWrapper>
         {list && list.length > 0 ? (
-          list.map((item, index) => (
-            <Item
-              {...item}
-              deleteTask={deleteTask}
-              index={index}
-              key={`${item.value}-${index}`}
-            />
-          ))
+          list.map((item, index) => {
+            console.log({ listItem: item })
+            return (
+              <Item
+                {...item}
+                deleteTask={deleteTask}
+                index={index}
+                handleInputChange={handleInputChange}
+              />
+            )
+          })
         ) : (
           <NoTaskMessage>Currently no todos! Enjoy</NoTaskMessage>
         )}

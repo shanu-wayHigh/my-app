@@ -18,14 +18,14 @@ export const LeftSection = styled.div`
     margin-bottom: 0.5rem;
     font-size: 0.725rem;
   }
-
-  .disabled {
-    background-color: #ffffff;
-    border: 0;
-  }
 `
 export const RightSection = styled.div`
   .edit-icon {
     margin-right: 1rem;
   }
+`
+
+export const StyledInput = styled.input`
+  border: 0;
+  background-color: #ffffff;
 `
