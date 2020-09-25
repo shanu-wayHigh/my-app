@@ -36,7 +36,6 @@ function TaskList() {
       const newList = [...list]
       if (item.uniqueKey === uniqueKey) {
         newList[index].isEditMode = true
-        console.log({ inputBoxRef })
         inputBoxRef.current[index].focus()
       } else {
         newList[index].isEditMode = false
@@ -62,7 +61,6 @@ function TaskList() {
     list.map((item, index) => {
       const newList = [...list]
       if (item.uniqueKey === key) {
-        console.log({ newList, item: newList[index] })
         newList[index].taskName = task
       }
       updateList(newList)

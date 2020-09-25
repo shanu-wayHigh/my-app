@@ -15,7 +15,6 @@ function Item(props: any) {
     handleOnEditComplete = () => {},
   } = props
 
-  console.log({ isEditMode })
   return (
     <ItemPanel>
       <LeftSection>
